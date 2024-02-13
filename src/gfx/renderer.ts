@@ -12,8 +12,8 @@ const createCanvasElement = (): HTMLCanvasElement => {
 }
 
 export default class Renderer {
-  protected canvas: HTMLCanvasElement;
-  protected context: CanvasRenderingContext2D | null;
+  public canvas: HTMLCanvasElement;
+  public context: CanvasRenderingContext2D | null;
   protected autoClear: boolean;
   protected running: boolean;
   protected updateFunctions: Function[];
@@ -33,6 +33,10 @@ export default class Renderer {
     let context = this.canvas.getContext("2d")
     context ? this.context = context : this.context = null;
 
+    if(this.context) {      
+      this.context.imageSmoothingEnabled = false;
+    }
+
     if (wrapper) {
       wrapper.classList.add("viree-canvas__wrapper");
       wrapper.appendChild(this.canvas)
@@ -44,10 +48,6 @@ export default class Renderer {
       if(params.autoResize === false) return;
       this.setSize(window.innerWidth, window.innerHeight)
     })
-  }
-
-  getContext() {
-    return this.context;
   }
 
   setSize(width: number, height: number) {
@@ -80,7 +80,7 @@ export default class Renderer {
     }
 
     if(this.autoClear) {
-      this.context?.clearRect(0, 0, this.canvas.width, this.canvas.height);
+      this.context.clearRect(0, 0, this.canvas.width, this.canvas.height);
     }
 
     for (let i = 0; i < this.updateFunctions.length; i++) {

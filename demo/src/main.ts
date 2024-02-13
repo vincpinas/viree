@@ -1,18 +1,10 @@
 import './style.css'
 import Renderer from "../../src/gfx/renderer"
-import Sprite from "../../src/gfx/sprite"
+import Player from "../../src/entities/player"
 import Vec2 from '../../src/math/vec2';
+import Stone from "../../src/entities/stone"
 
-const sprite = new Sprite({
-  src: "./Rock-Sheet.webp",
-  pos: new Vec2(400, 150),
-  width: 100,
-  height: 100,
-  sheet_height: 100,
-  sheet_width: 2200,
-  interval: 60,
-  offset: 4
-})
+import { random } from "../../src/utils"
 
 const renderer = new Renderer({
   wrapper: document.querySelector("#app"),
@@ -20,7 +12,16 @@ const renderer = new Renderer({
   autoResize: true
 })
 
+const player = new Player(new Vec2(window.innerWidth / 2.25, window.innerHeight / 2));
 
-renderer.add(sprite)
+for (let i = 0; i < 50; i++) {
+  const stone = new Stone(new Vec2(random(-400, 2500), random(0, 800)))
+
+  renderer.add(stone)
+  
+}
+
+renderer.add(player)
+
 
 renderer.render()

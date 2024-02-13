@@ -11,8 +11,8 @@
 
 ## Overview
 
-Viree is a simple javascript based game engine using the Canvas API.
-This project is currently purely out of interest and I'm not planning to turn this into a public package for now.
+Viree is game made using a simple javascript based game engine using the Canvas API written from sratch.
+This project is currently purely out of interest and I'm not planning to turn this into something serious.
 
 * **<a href="#class-reference">Class Reference</a>**
   * <a href="#renderer">Renderer</a>
@@ -22,6 +22,8 @@ This project is currently purely out of interest and I'm not planning to turn th
 
 ### Renderer
 ```javascript
+import Renderer from "gfx/renderer"
+
 const renderer = new Renderer({
   wrapper: document.querySelector("#app"), // Wrapper element to place the canvas in.
   autoClear: true, // Automatically clear canvas before each render loop, default: true
@@ -48,6 +50,26 @@ This method freezes the render loop when set to false and resumes the render loo
 This method explicitly sets the size of the canvas element in pixels. 
 *Note that this will only work if auto resize is not turned on.*
 
+### Sprite / Animated Sprite
+```javascript
+import { Sprite, AnimatedSprite } from "gfx/sprite"
+
+new Sprite({
+  pos: new Vec2(this.pos.x, this.pos.y),
+  src: "./player.png",
+  width: 48,
+  height: 64,
+  sheet_height: 256,
+  sheet_width: 144,
+  interval: 200,
+  sm: 3
+});
+ ```
+``Sprite`` and ``AnimatedSprite`` are essentially the same class and take in the same paramaters, but the animated sprite automatically cycles through animations when ``AnimatedSprite.animate`` is equal to true.
+The default value of this property is set to false and you're expected to turn it on yourself when needing to cycle through the animation when for instance the player is moving.
+
+#### ``AnimatedSprite.setAnimate(newState: boolean)``
+This method can be used to set the ``animate`` property of ``AnimatedSprite`` to true or false.
 
 
 ## Future Plans
