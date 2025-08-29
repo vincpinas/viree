@@ -1,7 +1,5 @@
 function random(min: number, max: number) {
-  return Math.random() * (max - min) + min;
+	return Math.random() * (max - min) + min;
 }
 
-export {
-  random,
-};
+export { random };
